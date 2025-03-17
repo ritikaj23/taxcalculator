@@ -1,11 +1,16 @@
-# Use OpenJDK 11 as the base image
-FROM openjdk:11-jre-slim
+# Use a base image with Java 21
+FROM openjdk:21-jdk-slim
 
+# Set the working directory
 WORKDIR /app
 
+# Copy the JAR file into the container
+COPY ./target/*.jar app.jar
 
-COPY target/taxcalculator-0.0.1-SNAPSHOT.jar /usr/app/taxcalculator.jar
+# Expose the port the application will run on
+EXPOSE 8080
 
-CMD ["java", "-jar", "taxcalculator.jar"]
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
